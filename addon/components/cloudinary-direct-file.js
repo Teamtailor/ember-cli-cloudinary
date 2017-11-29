@@ -26,6 +26,7 @@ export default Ember.Component.extend({
   maxFileSize: 50000000,
   loadImageMaxFileSize: 50000000,
   maxChunkSize: 10000000,
+
   // Fetch signature
   init() {
     this._super(...arguments);
