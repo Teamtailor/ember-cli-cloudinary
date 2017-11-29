@@ -25,7 +25,7 @@ export default Ember.Component.extend({
   acceptFileTypes: /(\.|\/)(gif|jpe?g|png|bmp|ico)$/i,
   maxFileSize: 50000000,
   loadImageMaxFileSize: 50000000,
-
+  maxChunkSize: 10000000,
   // Fetch signature
   init() {
     this._super(...arguments);
@@ -43,11 +43,12 @@ export default Ember.Component.extend({
     Ember.run.next(this, function() {
       this.$().cloudinary_fileupload({
         disableImageResize: this.get('disableImageResize'),
-        imageMaxWidth:      this.get('imageMaxWidth'),
-        imageMaxHeight:     this.get('imageMaxHeight'),
-        acceptFileTypes:    this.get('acceptFileTypes'),
-        maxFileSize:        this.get('maxFileSize'),
-        loadImageMaxFileSize: this.get('loadImageMaxFileSize')
+        imageMaxWidth: this.get('imageMaxWidth'),
+        imageMaxHeight: this.get('imageMaxHeight'),
+        acceptFileTypes: this.get('acceptFileTypes'),
+        maxFileSize: this.get('maxFileSize'),
+        loadImageMaxFileSize: this.get('loadImageMaxFileSize'),
+        maxChunkSize: this.get('maxChunkSize')
       });
     });
   }),
