@@ -1,14 +1,16 @@
-import Ember from 'ember';
+import Component from '@ember/component';
+import { computed } from '@ember/object';
+import { alias } from '@ember/object/computed';
 
-const CloudinaryImageComponent = Ember.Component.extend({
+const CloudinaryImageComponent = Component.extend({
   tagName: 'img',
   attributeBindings: ['src', 'width', 'height'],
 
-  width: Ember.computed.alias('options.width'),
-  height: Ember.computed.alias('options.height'),
+  width: alias('options.width'),
+  height: alias('options.height'),
 
-  src: Ember.computed('publicId', 'width', 'height', function() {
-    return Ember.$.cloudinary.url(this.get('publicId'), this.get('options'));
+  src: computed('publicId', 'width', 'height', function() {
+    return $.cloudinary.url(this.get('publicId'), this.get('options'));
   })
 });
 
