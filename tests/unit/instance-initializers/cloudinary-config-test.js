@@ -1,3 +1,6 @@
+import $ from 'jquery';
+import Application from '@ember/application';
+import { run } from '@ember/runloop';
 import Ember from 'ember';
 import { initialize } from 'dummy/instance-initializers/cloudinary-config';
 import { module, test } from 'qunit';
@@ -12,13 +15,13 @@ const config = {
 
 module('Unit | Instance Initializer | cloudinary config', {
   beforeEach: function() {
-    Ember.run(() => {
-      this.application = Ember.Application.create();
+    run(() => {
+      this.application = Application.create();
       this.appInstance = this.application.buildInstance();
     });
   },
   afterEach: function() {
-    Ember.run(this.appInstance, 'destroy');
+    run(this.appInstance, 'destroy');
     destroyApp(this.application);
   }
 });
@@ -28,7 +31,7 @@ test('it configures cloudinary', function(assert) {
   this.appInstance.register('config:environment', config);
   initialize(this.appInstance);
 
-  assert.deepEqual(Ember.$.cloudinary.config(), { api_key: "12345", cloud_name: "cloud-name", secure: true });
+  assert.deepEqual($.cloudinary.config(), { api_key: "12345", cloud_name: "cloud-name", secure: true });
 });
 
 
@@ -37,7 +40,7 @@ test('it throws an error if cloudinary options not in ENV', function(assert) {
 
   this.appInstance.register('config:environment', {});
 
-  Ember.Logger.error = function(msg) {
+  console.error = function(msg) {
     assert.equal(msg, 'Please specify your cloudinary.cloudName and cloudinary.apiKey in your config.');
   };
 

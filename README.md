@@ -64,7 +64,7 @@ loadImageMaxFileSize | 50000000 | Load Image Max File Size
 
 #### Events
 Event | Info
------- | ---- 
+------ | ----
 onUploadDone | File uploaded
 fileProgress | File progress
 allFileProgress | More than one file progress

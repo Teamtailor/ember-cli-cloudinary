@@ -1,12 +1,12 @@
+import $ from 'jquery';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
-import Ember from 'ember';
 
 moduleForComponent('cloudinary-image', 'Integration | Component | cloudinary image', {
   integration: true,
 
   beforeEach() {
-    Ember.$.cloudinary.config({ cloud_name: 'cloud-name', api_key: '12345', secure: true });
+    $.cloudinary.config({ cloud_name: 'cloud-name', api_key: '12345', secure: true });
   }
 });
 

@@ -1,3 +1,4 @@
+import $ from 'jquery';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import Ember from 'ember';
@@ -6,7 +7,7 @@ moduleForComponent('cloudinary-direct-file', 'Integration | Component | cloudina
   integration: true,
 
   beforeEach() {
-    Ember.$.get = function() {
+    $.get = function() {
       return { done(cb) { cb({ some: 'response' }); } };
     };
   }
@@ -15,7 +16,7 @@ moduleForComponent('cloudinary-direct-file', 'Integration | Component | cloudina
 test('it requests an upload signature on render', function(assert) {
   assert.expect(1);
 
-  Ember.$.get = function(url) {
+  $.get = function(url) {
     assert.equal(url, '/signature_endpoint');
     return { done(cb) { cb({ some: 'response' }); } };
   };
@@ -27,7 +28,7 @@ test('it requests an upload signature on render', function(assert) {
 test('it reports an error when signatureEndpoint parameter is not specified', function(assert) {
   assert.expect(1);
 
-  Ember.Logger.error = function(msg) {
+  console.error = function(msg) {
     assert.equal(msg, '`signatureEndpoint` parameter must be specified on cloudinary-direct-file component.');
   };
 

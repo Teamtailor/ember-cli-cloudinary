@@ -1,6 +1,12 @@
+import { observer } from '@ember/object';
+import { run, next } from '@ember/runloop';
+import $ from 'jquery';
+import { htmlSafe } from '@ember/template';
+import { alias } from '@ember/object/computed';
+import Component from '@ember/component';
 import Ember from 'ember';
 
-export default Ember.Component.extend({
+export default Component.extend({
   tagName: 'input',
   classNames: ['cloudinary-fileupload'],
 
@@ -11,9 +17,9 @@ export default Ember.Component.extend({
   type: 'file',
   multiple: false,
   fieldName: null,
-  'data-cloudinary-field': Ember.computed.alias('fieldName'),
+  'data-cloudinary-field': alias('fieldName'),
   accept: 'image/jpeg,image/gif,image/png',
-  style: Ember.String.htmlSafe(""),
+  style: htmlSafe(""),
 
   // Endpoint
   signatureEndpoint: null,
@@ -32,16 +38,16 @@ export default Ember.Component.extend({
     this._super(...arguments);
 
     if (!this.get('signatureEndpoint')) {
-      Ember.Logger.error('`signatureEndpoint` parameter must be specified on cloudinary-direct-file component.');
+      console.error('`signatureEndpoint` parameter must be specified on cloudinary-direct-file component.');
     }
 
-    Ember.$.get(this.get('signatureEndpoint'), { timestamp: Date.now() / 1000 }).done((response) => {
-      Ember.run(() => { this.set('data-form-data', JSON.stringify(response)); });
+    $.get(this.get('signatureEndpoint'), { timestamp: Date.now() / 1000 }).done((response) => {
+      run(() => { this.set('data-form-data', JSON.stringify(response)); });
     });
   },
 
-  didSetData: Ember.observer('data-form-data', function() {
-    Ember.run.next(this, function() {
+  didSetData: observer('data-form-data', function() {
+    next(this, function() {
       this.$().cloudinary_fileupload({
         disableImageResize: this.get('disableImageResize'),
         imageMaxWidth: this.get('imageMaxWidth'),
