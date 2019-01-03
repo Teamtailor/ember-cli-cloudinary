@@ -5,6 +5,7 @@ module.exports = {
   description: 'ember-cli-cloudinary blueprint',
 
   afterInstall: function() {
-    return this.addBowerPackageToProject('cloudinary-jquery-file-upload', '^2.0.6');
+    this.addPackageToProject('blueimp-file-upload')
+    this.addPackageToProject('cloudinary-jquery-file-upload', '^2.0.6')
   }
 };
